@@ -1,13 +1,17 @@
 const express = require('express');
-const {getPosts,createPost} = require("../controller/post")
+const {getPosts,createPost} = require("../controllers/post")
 const {createPostValidator} = require("../validator")
-const {requireSignin} = require("../controller/auth")
+const {requireSignin} = require("../controllers/auth")
+const {userById} = require("../controllers/user")
 const router = express.Router();
 
 
-router.get("/",requireSignin,getPosts);
+router.get("/",getPosts);
 
-router.post("/post",createPostValidator,createPost);
+router.post("/post",requireSignin,createPostValidator,createPost);
+
+//any routes cpnntaining userid , app will first execute userbyID
+router.param("userId", userById);
 
 
 module.exports = router;
