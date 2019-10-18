@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/",getPosts);
 
-router.post("/post",requireSignin,createPostValidator,createPost);
+router.post("/post/new/:userId",requireSignin,createPost,createPostValidator);
 
 //any routes cpnntaining userid , app will first execute userbyID
 router.param("userId", userById);
